@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Section from './Section';
 import FeedbackOptions from './FeedbackOptions';
 import Statistics from './Statistics';
+import Notification from './Notification';
 import inititalState from './initialState';
 
 const App = () => {
@@ -31,15 +32,18 @@ const App = () => {
           options={Object.keys(state)}
         />
       </Section>
-
       <Section title={'Statistics'}>
-        <Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          total={countTotalFeedback}
-          positivePercentage={countPositiveFeedbackPercentage}
-        />
+        {countTotalFeedback() ? (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={countTotalFeedback}
+            positivePercentage={countPositiveFeedbackPercentage}
+          />
+        ) : (
+          <Notification message="There is no feedback" />
+        )}
       </Section>
     </>
   );
